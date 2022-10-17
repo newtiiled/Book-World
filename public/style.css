@@ -1,0 +1,38 @@
+nav {
+    background-color: lightblue;
+    color: darkslategray;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+}
+
+nav li {
+    list-style: none;
+}
+
+nav li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 8px;
+    padding-right: 8px;
+     
+}
+
+.user-profile {
+    background-color: orange;
+    text-align: center;
+}
+
+.pfp {
+    width: 100%;
+}
