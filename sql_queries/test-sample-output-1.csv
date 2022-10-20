@@ -1,0 +1,6 @@
+userID,username,userPassword,firstName,favBook,favGenre
+1,test1,pass1,Matt,"mew book",
+2,test2,pass2,Ange,nope,mystory
+3,test3,pass3,Kat,,
+4,test4,pass4,Dave,,thinking
+5,john23,pass123,John,NULL,NULL
