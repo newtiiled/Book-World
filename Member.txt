@@ -1,4 +1,6 @@
 Uma
+- Milestone 0 description & planning
+- R1. Application high-level description
 - Sample Data description/data creation (R3)
 - E/R Diagram (R5b)
 - Relational Data Model (R5c)
@@ -7,6 +9,8 @@ Uma
 - SQL Query (C3)
 
 Preethi
+- Milestone 0 description & planning
+- R1. Application high-level description
 - Schema Assumptions (R5a)
 - E/R Diagram (R5b)
 - Features (R6a, R6b)
@@ -14,6 +18,8 @@ Preethi
 - SQL Query (C3)
 
 Ben
+- Milestone 0 description & planning
+- R1. Application high-level description
 - E/R Diagram (R5b)
 - Relational Data Model (R5c)
 - Features (R6a, R6b)
@@ -21,13 +27,14 @@ Ben
 - SQL Query (C3)
 
 Kanwal
+- Milestone 0 description & planning
 - R1. Application high-level description
 - R2. System support description
 - R5. Schema design
 - R5c. Relational data model
 - R6. Feature/Functionality 
 - R6a. Interface design
-- R6b. SQL query, testing with sample data
+- R6b/bi. SQL query, testing with sample data
   - Initial front-end setup of application, initial back-end work, connecting to db
   - Functionalities: Register user, Login, logout, displaying loggedout state, 
                       displaying logged state, logging out
@@ -42,10 +49,13 @@ Kanwal
 
 
 Snehal
+- Milestone 0 description & planning
+- R1. Application high-level description
 - Sample Data description (R3)
 - Schema design (R5)
 - Schema Assumptions (R5a)
 - E/R Diagram (R5b)
+- Initial setup of application
 - C2. SQL code
 
 
