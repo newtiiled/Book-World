@@ -16,11 +16,16 @@ CREATE TABLE Users(userID INT NOT NULL PRIMARY KEY,
                     favGenre CHAR(200));
 
 CREATE TABLE ToRead(userID INT NOT NULL REFERENCES Users(userID), 
-                    bookID INT NOT NULL NULL REFERENCES Books(bookID),
-                    PRIMARY KEY(userID, bookId));
+                    bookID INT NOT NULL REFERENCES Books(bookID),
+                    PRIMARY KEY(userID, bookId),
+                    foreign key (userID) references Users(userID) on delete cascade,
+                    foreign key (bookID) references Books(bookID) on delete cascade);
 
 CREATE TABLE DidRead(userID INT NOT NULL REFERENCES Users(userID), 
                     bookID INT NOT NULL REFERENCES Books(bookID), 
                     rating INT, 
                     dateFinished CHAR(20),
-                    PRIMARY KEY(userID, bookId));
+                    PRIMARY KEY(userID, bookId),
+                    foreign key (userID) references Users(userID) on delete cascade,
+                    foreign key (bookID) references Books(bookID) on delete cascade);
+                    
