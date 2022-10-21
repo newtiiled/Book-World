@@ -15,6 +15,8 @@ To run:
   - navigate to http://localhost:3000/
 - mysql server should start up: http://localhost:8888/MAMP/?language=English
   - navigate to phpMyAdmin and find our db books-project
+- If first time running, our db may not be setup, so run SQL queries in the phpMyAdmin to setup the basic user table for login/profile      creation
+  - RUN: create_user_table.sql (https://github.com/kjamal01/CS348-Project/blob/main/sql_queries/create_user_table.sql)
   
 NOTE:
 - many sql scripts are embedded in the code. We will include references to them
