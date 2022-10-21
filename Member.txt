@@ -1,0 +1,25 @@
+Uma
+- E/R Diagram (R5b)
+- Relational Data Model (R5c)
+- Features (R6a, R6b)
+- SQL Code (C2)
+- SQL Query (C3)
+
+Preethi
+- Schema Assumptions (R5a)
+- E/R Diagram (R5b)
+- Features (R6a, R6b)
+- SQL Code (C2)
+- SQL Query (C3)
+
+Ben
+- E/R Diagram (R5b)
+- Relational Data Model (R5c)
+- Features (R6a, R6b)
+- SQL Code (C2)
+- SQL Query (C3)
+
+Kanwal
+
+
+Snehal
