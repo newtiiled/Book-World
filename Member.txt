@@ -1,4 +1,5 @@
 Uma
+- Sample Data description/data creation (R3)
 - E/R Diagram (R5b)
 - Relational Data Model (R5c)
 - Features (R6a, R6b)
