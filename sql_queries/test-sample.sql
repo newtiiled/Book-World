@@ -29,4 +29,13 @@ INSERT INTO DidRead VALUES ( [userid], [bookid]);
 
 -- Feature 4: Delete Account
 
-DELETE FROM users WHERE users.userID = 1;
+-- Inserting Sample Data for deletion
+INSERT INTO Books VALUES(20,'Data Smart', 'Foreman, John', NULL, 'data_science', 2014);
+INSERT INTO Books VALUES(21,'God Created the Integers', 'Hawking, Stephen', NULL, 'mathematics', 2013);
+INSERT INTO Users VALUES(11, 'testUserToDelete', '123Pass', 'Sam', 'Data Smart', 'Horror');
+INSERT INTO DidRead VALUES(11, 20, 0, '10-14-2022');
+INSERT INTO ToRead VALUES(11, 21);
+
+-- Delete removes rows with userID = 11 from Users, DidRead, and ToRead tables
+-- Due to foreign key reference on delete cascade on DidRead and ToRead tables
+DELETE FROM users WHERE users.userID = 11;
