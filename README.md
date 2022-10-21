@@ -21,4 +21,4 @@ To run:
 NOTE:
 - many sql scripts are embedded in the code. We will include references to them
   - The rest are linked or used in our db
-  - Additionally, we can create a folder in our repo that contains them
+  - Additionally, we created a folder in our repo that contains them (sql_queries)
