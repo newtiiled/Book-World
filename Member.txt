@@ -21,6 +21,31 @@ Ben
 - SQL Query (C3)
 
 Kanwal
+- R1. Application high-level description
+- R2. System support description
+- R5. Schema design
+- R5c. Relational data model
+- R6. Feature/Functionality 
+- R6a. Interface design
+- R6b. SQL query, testing with sample data
+  - Initial front-end setup of application, initial back-end work, connecting to db
+  - Functionalities: Register user, Login, logout, displaying loggedout state, 
+                      displaying logged state, logging out
+  - SQL queries to create initial/base user table
+    - SQL queries to ensure user can register (ensure username is unique, ensure passwords match)
+    - SQL queries for logging in user, retrieving the correct user's login session and profile
+- C1. ReadMe
+- C2. SQL code
+- C3. SQL queries
+- C5. Application code
+- Note: user on github contributions "Muhammad Jamal" is the name of my laptop
 
 
 Snehal
+- Sample Data description (R3)
+- Schema design (R5)
+- Schema Assumptions (R5a)
+- E/R Diagram (R5b)
+- C2. SQL code
+
+
