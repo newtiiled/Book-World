@@ -19,6 +19,7 @@ To run:
   - RUN: create_user_table.sql (https://github.com/kjamal01/CS348-Project/blob/main/sql_queries/create_user_table.sql)
   
 NOTE:
+- For demo of current functionality: https://github.com/kjamal01/CS348-Project/pull/1
 - many sql scripts are embedded in the code. We will include references to them
   - The rest are linked or used in our db
   - Additionally, we created a folder in our repo that contains them (sql_queries)
