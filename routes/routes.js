@@ -33,6 +33,17 @@ router.get("/userProfile", authController.signedIn, (req, res) => {
     }
 });
 
+//listBooks if signed in
+router.get("/listBooks", authController.signedIn, (req, res) => {
+    if (req.user) {
+        res.render("listBooks", {
+            user: req.user 
+        });
+    } else {
+        res.redirect("/signin");
+    }
+});
+
 //auth routes
 
 //route post, when submitting a form
