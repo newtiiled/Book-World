@@ -33,10 +33,23 @@ router.get("/userProfile", authController.signedIn, (req, res) => {
     }
 });
 
+//listBooks if signed in
+router.get("/listBooks", authController.signedIn, (req, res) => {
+    if (req.user) {
+        res.render("listBooks", {
+            user: req.user,
+            books: authController.listBooks()
+        });
+    } else {
+        res.redirect("/signin");
+    }
+});
+
 //auth routes
 
 //route post, when submitting a form
 //like auth/register
+router.post("/auth/listBooks", authController.listBooks);
 router.post("/auth/register", authController.register);
 router.post("/auth/signin", authController.signin);
 router.get("/auth/signout", authController.signout);
