@@ -166,3 +166,17 @@ exports.listBooks = async(req, res) => {
         }
     })
 }
+
+exports.addBook = async(req, res) => {
+    //console.log(res.body);
+    db.query(`SELECT * FROM Books`, async (error, result) => {
+        if(error) {
+            console.log(error)
+        } else {
+            console.log(result);
+            // return res.render('books', {
+            //     message: 'listed books'
+            // });
+        }
+    })
+}
