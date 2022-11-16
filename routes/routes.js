@@ -34,12 +34,9 @@ router.get("/userProfile", authController.signedIn, (req, res) => {
 });
 
 //listBooks if signed in
-router.get("/listBooks", authController.signedIn, (req, res) => {
+router.get("/listBooks", authController.listBooks, (req, res) => {
     if (req.user) {
-        res.render("listBooks", {
-            user: req.user,
-            books: authController.listBooks()
-        });
+        res.render("listBooks");
     } else {
         res.redirect("/signin");
     }

@@ -153,16 +153,50 @@ exports.signout = async(req, res) => {
     }
 }
 
-exports.listBooks = async(req, res) => {
+exports.listBooks = async(req, res, then) => {
     //console.log(res.body);
-    db.query(`SELECT * FROM Books`, async (error, result) => {
-        if(error) {
-            console.log(error)
-        } else {
-            console.log(result);
-            // return res.render('books', {
-            //     message: 'listed books'
-            // });
+
+    if (req.cookies.jwt) {
+        try {
+            //check token, get user.id
+            const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
+            console.log(token);
+
+            //make sure user still exists
+            db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
+                console.log(result);
+                if (!result) {
+                    return then();
+                }
+                req.user = result[0];
+
+                db.query(`SELECT * FROM Books`, async (error, result) => {
+                    if(error) {
+                        console.log(error)
+                    } else {
+                        console.log(result);
+                        res.status(200).render('listBooks', {
+                            books: result[1] //THIS IS WHAT WE CAN USE IN HANDLEBARS, RN ITS JUST THE 1ST BOOK
+                        });
+                        // return res.render('books', {
+                        //     message: 'listed books'
+                        // });
+            
+                    }
+                    then();
+                })
+
+
+
+            });
+
+        } catch (error) {
+            console.log(error);  
+            return;
+
         }
-    })
+
+    } else {
+        then();
+    }
 }
