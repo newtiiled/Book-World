@@ -201,3 +201,14 @@ exports.listBooks = async(req, res, then) => {
     }
 }
 
+// Delete
+// userID passed from routes.js
+exports.deleteAccount = async(userID, req, res) => {
+    db.query('DELETE FROM user WHERE id = ?', [userID],(error, result) => {
+        if(error){
+            console.log(error);
+        } else {
+            console.log(result);
+        }
+    });
+}

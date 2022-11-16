@@ -42,6 +42,17 @@ router.get("/listBooks", authController.listBooks, (req, res) => {
     }
 });
 
+//Delete user
+router.get("/deleteAccount", authController.signedIn, (req, res) => {
+    if (req.user){
+        authController.deleteAccount(req.user.id)
+        // Signs user out using signout endpoint
+        res.redirect("/auth/signout");
+    } else {
+        res.redirect("/signin");
+    }
+});
+
 //auth routes
 
 //route post, when submitting a form
