@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav>
-        <h1> Book World :) </h1>
+        <h1> Book World </h1>
         <ul>
             <li> <a href= "/">HOME</a></li>
             <li> <a href= "/userProfile">USER PROFILE</a></li>
@@ -26,12 +26,11 @@
   <li>book 2</li>
   <li>book 3</li>
   {{!-- {{listbooks}} --}}
-  {{books}}
+  {{!-- {{books}} --}}
   {{!-- {{console.log(books)}} --}}
 
   <div class="container mt-4">
       <table class="table">
-        <thead>
           <tr>
             <th>Title</th>
             <th>Author</th>
@@ -42,28 +41,17 @@
             <th>PublishDate</th>
             <th>Description</th>
           </tr>
-        </thead>
-        <tbody>
-          <% if(books.length > 0)
-          { for(var i = 0; i < books.length; i++) 
-          {%>
           
-        <tr>
-            <td><%=i; %></td>
-            <td><%=data.Title %></td>
-            <td><%=data.Author %></td>
+         {{#each books}}
+            <td>{{this.Title}}</td>
+            {{!-- <td><%=data.Author %></td>
             <td><%=data.Genre %></td>
-            <td><%=data.Height %></td>
+            <td><%=data.Height %></td> --}}
+            hello
             <td><a href="/users/edit/<%=data.id%>">Edit</a></td>
             <td><a href="/users/delete/<%=data.id%>">Delete</a></td>
         </tr>
-        <%  i++; }) %>
-        <% } else{ %>
-            <tr>
-                <td colspan="7">No Data Found</td>
-            </tr>
-        <% } %>
-        </tbody>
+        {{/each}}
       </table>
     </div>
 </ul>
