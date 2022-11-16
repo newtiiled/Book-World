@@ -1,60 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
     <title>Document</title>
 </head>
+
 <body>
     <nav>
         <h1> Book World </h1>
         <ul>
-            <li> <a href= "/">HOME</a></li>
-            <li> <a href= "/userProfile">USER PROFILE</a></li>
-            <li> <a href= "/auth/signout">SIGN OUT</a></li>
+            <li> <a href="/">HOME</a></li>
+            <li> <a href="/userProfile">USER PROFILE</a></li>
+            <li> <a href="/auth/signout">SIGN OUT</a></li>
         </ul>
     </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 </body>
-<h5 class="profile-title">Hi {{books.Title}}!</h5>
-<ul>
-  <li>book 1</li>
-  <li>book 2</li>
-  <li>book 3</li>
-  {{!-- {{listbooks}} --}}
-  {{!-- {{books}} --}}
-  {{!-- {{console.log(books)}} --}}
-
-  <div class="container mt-4">
-      <table class="table">
-          <tr>
+<h5 class="profile-title">Hi {{user.username}}!</h5>
+{{!-- not able to display username like in /userProfile --}}
+<div class="container mt-4">
+    <table class="table">
+        <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Genre</th>
-            <th>Height</th>
+            {{!-- <th>Height</th> --}}
+            {{!-- excluded hieght because not relevant to any features --}}
             <th>Publisher</th>
             <th>ID</th>
             <th>PublishDate</th>
             <th>Description</th>
-          </tr>
-          
-         {{#each books}}
-            <td>{{this.Title}}</td>
-            {{!-- <td><%=data.Author %></td>
-            <td><%=data.Genre %></td>
-            <td><%=data.Height %></td> --}}
-            hello
-            <td><a href="/users/edit/<%=data.id%>">Edit</a></td>
-            <td><a href="/users/delete/<%=data.id%>">Delete</a></td>
+            {{!-- we dont have a description for books, can make up garbage values --}}
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
-        {{/each}}
-      </table>
-    </div>
-</ul>
 
+        {{#each books}}
+        {{#if @index}}
+        {{!-- skip 0 index (just the column names) --}}
+        <tr>
+            <td>{{this.Title}}</td>
+            <td>{{this.Author}}</td>
+            <td>{{this.Genre}}</td>
+            <td>{{this.Publisher}}</td>
+            <td>{{this.ID}}</td>
+            <td>{{this.PublishDate}}</td>
+            <td>{{this.Description}}</td>
+
+            {{!-- need to add functionality for edit and delete --}}
+            <td><a href="/users/edit/">Edit</a></td>
+            <td><a href="/users/delete/">Delete</a></td>
+        </tr>
+        {{/if}}
+        {{/each}}
+    </table>
+</div>
 
 </html>

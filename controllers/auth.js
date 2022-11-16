@@ -176,7 +176,7 @@ exports.listBooks = async(req, res, then) => {
                     } else {
                         console.log(result);
                         res.status(200).render('listBooks', {
-                            books: result[1] //THIS IS WHAT WE CAN USE IN HANDLEBARS, RN ITS JUST THE 1ST BOOK
+                            books: result
                         });
                         // return res.render('books', {
                         //     message: 'listed books'
