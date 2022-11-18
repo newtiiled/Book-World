@@ -16,6 +16,10 @@ Preethi
 - Features (R6a, R6b)
 - SQL Code (C2)
 - SQL Query (C3)
+- (R6d) functionality to list books table on /listbooks page with DidRead, ToRead buttons
+- (R6c, R6d) snapshots, implementation, for list books query
+- (R6c, R6d) description of interface for listing books and adding books to user's tables
+- (C4) testing production data
 
 Ben
 - Milestone 0 description & planning
