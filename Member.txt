@@ -45,9 +45,14 @@ Kanwal
   - SQL queries to create initial/base user table
     - SQL queries to ensure user can register (ensure username is unique, ensure passwords match)
     - SQL queries for logging in user, retrieving the correct user's login session and profile
+- R6a, R6b, R6c, R6d for register, sign in, sign out, UI, user profile
+- R7a, R7b, R7c, R7d, for searching/listing all Books in the database
+  - making sure it is restricted access (if not signed in, redirect to sign in page)
+- Fancy Features (1, 2, 3, 4)
 - C1. ReadMe
 - C2. SQL code
 - C3. SQL queries
+- C4. Production dataset
 - C5. Application code
 - Note: user on github contributions "Muhammad Jamal" is the name of my laptop
 
@@ -60,6 +65,7 @@ Snehal
 - Schema Assumptions (R5a)
 - E/R Diagram (R5b)
 - Initial setup of application
+- Fancy Features (1, 2, 3, 4)
 - C2. SQL code
 
 
