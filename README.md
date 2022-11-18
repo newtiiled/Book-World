@@ -19,7 +19,9 @@ To run:
   - RUN: create_user_table.sql (https://github.com/kjamal01/CS348-Project/blob/main/sql_queries/create_user_table.sql)
   
 NOTE:
-- For demo of current functionality: https://github.com/kjamal01/CS348-Project/pull/1
+- For demo of functionality (Milestone 1): https://github.com/kjamal01/CS348-Project/pull/1
+  - Funtionality has since changed. Updated functionality is in our Milestone 2 report document
 - many sql scripts are embedded in the code. We will include references to them
   - The rest are linked or used in our db
   - Additionally, we created a folder in our repo that contains them (sql_queries)
+  - Source dataset is called books-dataset.csv and is under the sql_queries folder
