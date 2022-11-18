@@ -39,3 +39,11 @@ INSERT INTO ToRead VALUES(11, 21);
 -- Delete removes rows with userID = 11 from Users, DidRead, and ToRead tables
 -- Due to foreign key reference on delete cascade on DidRead and ToRead tables
 DELETE FROM users WHERE users.userID = 11;
+
+-- Feature 5: Update favourite book/genre on user account
+
+UPDATE User SET favGenre = [genre] WHERE userID = [curID]
+
+-- Feature 6: Reorder list of books based on attribute
+
+SELECT * FROM Books ORDER BY [attribute], title
