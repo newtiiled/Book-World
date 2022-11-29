@@ -78,6 +78,8 @@
 <script>
     const searchBar = document.getElementById('searchBar');
     const searchBtn = document.getElementById('searchBtn');
+
+    //Function for search btn
     searchBtn.addEventListener("click", goTo);
     function goTo(){
         var searchText = searchBar.value;
@@ -88,13 +90,4 @@
     searchBar.addEventListener("input", function(){
         searchBtn.disabled = (this.value === '');
     })
-
-    //var booksVar = {{books}}
-    //console.log(booksVar)
-    //Triggers on key release
-    //searchBar.addEventListener('keyup', (e) => {
-        //console.log(e.target.value)
-        //console.log(booksVar)
-        //const filteredBooks = books
-    //})
 </script>
