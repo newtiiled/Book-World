@@ -28,6 +28,16 @@
 <h5 class="profile-title">Hi {{user.username}}!</h5>
 {{!-- not able to display username like in /userProfile --}}
 <div class="container mt-4">
+
+    <div class="navbar navbar-light bg-light justify-content-between">
+        <h4 style="margin:5px;">The Books Database</h4>
+        <div style="display:flex;">
+                <input class="form-control mr-sm-2" style="margin:5px;" type="text" name="searchBar" id="searchBar" placeholder="search for book"/>
+                <button class="btn btn-primary" style="margin:5px;" id="searchBtn" disabled="true" role="button">Search</button>
+                <a class="btn btn-primary" style="margin:5px;" href="/listBooks" role="button">Clear</a>
+        </div>
+    </div>
+
     <table class="table">
         <tr>
             <th>Title</th>
@@ -45,8 +55,6 @@
         </tr>
 
         {{#each books}}
-        {{#if @index}}
-        {{!-- skip 0 index (just the column names) --}}
         <tr>
             <td>{{this.Title}}</td>
             <td>{{this.Author}}</td>
@@ -61,9 +69,32 @@
             <td><a href="/users/delete/">ToRead</a></td>
 
         </tr>
-        {{/if}}
         {{/each}}
     </table>
 </div>
 
 </html>
+
+<script>
+    const searchBar = document.getElementById('searchBar');
+    const searchBtn = document.getElementById('searchBtn');
+    searchBtn.addEventListener("click", goTo);
+    function goTo(){
+        var searchText = searchBar.value;
+        window.location.href = '/search/' + searchText;
+    }
+
+    // Disables SearchBtn if no input
+    searchBar.addEventListener("input", function(){
+        searchBtn.disabled = (this.value === '');
+    })
+
+    //var booksVar = {{books}}
+    //console.log(booksVar)
+    //Triggers on key release
+    //searchBar.addEventListener('keyup', (e) => {
+        //console.log(e.target.value)
+        //console.log(booksVar)
+        //const filteredBooks = books
+    //})
+</script>

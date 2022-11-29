@@ -175,7 +175,8 @@ exports.listBooks = async(req, res, then) => {
                         console.log(error)
                     } else {
                         console.log(result);
-                        res.status(200).render('listBooks', {
+                        result.shift();// Removes first element(skip 0 index just the column names)
+                        return res.status(200).render('listBooks', {
                             books: result
                         });
                         // return res.render('books', {
@@ -188,6 +189,54 @@ exports.listBooks = async(req, res, then) => {
 
 
 
+            });
+
+        } catch (error) {
+            console.log(error);  
+            return;
+
+        }
+
+    } else {
+        then();
+    }
+}
+
+//Same command as listBooks, but query instead performs a search
+//Search String stored in req.params.text
+exports.listBooksSearch = async(req, res, then) => {
+    if (req.cookies.jwt) {
+        try {
+            //check token, get user.id
+            const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
+            console.log(token);
+
+            //make sure user still exists
+            db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
+                console.log(result);
+                if (!result) {
+                    return then();
+                }
+                req.user = result[0];
+
+                db.query(`SELECT * FROM Books WHERE Title like '%${req.params.text}%' 
+                            OR Author like '%${req.params.text}%' 
+                            OR Genre like '%${req.params.text}%' 
+                            OR Publisher like '%${req.params.text}%' 
+                            OR ID like '%${req.params.text}%' 
+                            OR PublishDate like '%${req.params.text}%' 
+                            OR Description like '%${req.params.text}%'`, 
+                            async (error, result) => {
+                    if(error) {
+                        console.log(error)
+                    } else {
+                        console.log(result);
+                        return res.status(200).render('listBooks', {
+                            books: result
+                        });
+                    }
+                    then();
+                })
             });
 
         } catch (error) {
