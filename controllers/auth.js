@@ -14,7 +14,7 @@ const db = mysql.createConnection({
 })
 
 exports.register = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const name = req.body.name;
     const username = req.body.username;
     const password = req.body.password;
@@ -39,13 +39,13 @@ exports.register = async (req, res) => {
         }
 
         let hashpass = await bcryptjs.hash(password, 5);
-        console.log(hashpass);
+        // console.log(hashpass);
 
         db.query('INSERT INTO user SET ?', {name: name, username: username, password:hashpass}, (error, result) => {
             if (error) {
                 console.log('error');
             } else {
-                console.log(result)
+                // console.log(result)
                 return res.render('register', {
                     message: 'user successfully registered'
                 });
@@ -113,11 +113,11 @@ exports.signedIn = async (req, res, then) => {
         try {
             //check token, get user.id
             const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
-            console.log(token);
+            // console.log(token);
 
             //make sure user still exists
             db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
-                console.log(result);
+                // console.log(result);
                 if (!result) {
                     return then();
                 }
@@ -154,17 +154,15 @@ exports.signout = async(req, res) => {
 }
 
 exports.listBooks = async(req, res, then) => {
-    //console.log(res.body);
-
     if (req.cookies.jwt) {
         try {
             //check token, get user.id
             const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
-            console.log(token);
+            // console.log(token);
 
             //make sure user still exists
             db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
-                console.log(result);
+                // console.log(result);
                 if (!result) {
                     return then();
                 }
@@ -174,7 +172,7 @@ exports.listBooks = async(req, res, then) => {
                     if(error) {
                         console.log(error)
                     } else {
-                        console.log(result);
+                        // console.log(result);
                         res.status(200).render('listBooks', {
                             books: result
                         });
@@ -201,3 +199,48 @@ exports.listBooks = async(req, res, then) => {
     }
 }
 
+
+exports.listDidRead = async(req, res, then) => {
+    console.log("hello");
+
+    if (req.cookies.jwt) {
+        try {
+            //check token, get user.id
+            const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
+            console.log("token: ", token);
+
+            // //make sure user still exists
+            db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
+                // console.log(result);
+                if (!result) {
+                    return then();
+                }
+                req.user = result[0];
+
+                //SELECT Title, ID FROM Books, DidRead WHERE bookID = Books.ID AND DidRead.userID = ?
+                db.query(`SELECT * FROM Books`, [token.id], async (error, result) => {                    
+                    if(error) {
+                        console.log(error)
+                    } else {
+                        console.log("books: ", result);
+                        return res.status(200).render('userProfile', {
+                            listDidRead: result
+                        });
+                        // return res.render('books', {
+                        //     message: 'listed books'
+                        // });
+                        console.log("books: ", listDidRead);
+
+            
+                    }
+                    then();
+                })
+            });
+        } catch (error) {
+            console.log(error);  
+            return;
+        }
+    } else {
+        then();
+    }
+}

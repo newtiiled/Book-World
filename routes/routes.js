@@ -23,11 +23,16 @@ router.get("/signin", (req, res) => {
 });
 
 //route
-router.get("/userProfile", authController.signedIn, (req, res) => {
+router.get("/userProfile", authController.listDidRead, (req, res) => {
+    // console.log("authController.listDidRead: ", authController.listDidRead);
+    // console.log("authController.signedIn: ", authController.signedIn);
+
     if (req.user) {
         res.render("userProfile", {
-            user: req.user 
+            user: req.user,
+            // listDidRead: authController.listDidRead
         });
+        // res.render("listDidRead");
     } else {
         res.redirect("/signin");
     }
@@ -47,6 +52,7 @@ router.get("/listBooks", authController.listBooks, (req, res) => {
 //route post, when submitting a form
 //like auth/register
 router.post("/auth/listBooks", authController.listBooks);
+router.post("/auth/listDidRead", authController.listDidRead);
 router.post("/auth/register", authController.register);
 router.post("/auth/signin", authController.signin);
 router.get("/auth/signout", authController.signout);
