@@ -289,25 +289,51 @@ exports.addDidRead = async (req, res, then) => {
                 }
                 req.user = result[0];
 
-                db.query(`INSERT INTO DidRead SET ?`, { userID: [token.id], bookID: req.params.text},
-                    async (error, result) => {
+                db.query(`SELECT bookID FROM didread WHERE userID = ? AND bookID = ?`, [[token.id], req.params.text],
+                async (error, result) => {
+                  if (error) {
+                      console.log(error)
+                      return then();
+                  }
+                  console.log('result:', result.length );
+                  if(result.length > 0) {
+                    db.query(`SELECT * FROM Books`, async (error, result) => {
                         if (error) {
                             console.log(error)
-                            return then();
+                        } else {
+                            result.shift();// Removes first element(skip 0 index just the column names)
+                            return res.status(200).render('listBooks', {
+                                books: result,
+                                message: 'Book already in "TO Read" List',
+                                user: req.user
+                            });
                         }
-                        db.query(`SELECT * FROM Books`, async (error, result) => {
+                        then();
+                    })
+                  }
+                  else {
+                    db.query(`INSERT INTO DidRead SET ?`, { userID: [token.id], bookID: req.params.text},
+                        async (error, result) => {
                             if (error) {
                                 console.log(error)
-                            } else {
-                                result.shift();// Removes first element(skip 0 index just the column names)
-                                return res.status(200).render('listBooks', {
-                                    books: result,
-                                    user: req.user
-                                });
+                                return then();
                             }
-                            then();
+                            db.query(`SELECT * FROM Books`, async (error, result) => {
+                                if (error) {
+                                    console.log(error)
+                                } else {
+                                    result.shift();// Removes first element(skip 0 index just the column names)
+                                    return res.status(200).render('listBooks', {
+                                        books: result,
+                                        message: 'Book added to "TO Read" List',
+                                        user: req.user
+                                    });
+                                }
+                                then();
+                            })
                         })
-                    })
+                  }
+                })
             });
 
         } catch (error) {
