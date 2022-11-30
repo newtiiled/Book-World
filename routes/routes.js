@@ -24,15 +24,10 @@ router.get("/signin", (req, res) => {
 
 //route
 router.get("/userProfile", authController.listDidRead, (req, res) => {
-    // console.log("authController.listDidRead: ", authController.listDidRead);
-    // console.log("authController.signedIn: ", authController.signedIn);
-
     if (req.user) {
         res.render("userProfile", {
             user: req.user,
-            // listDidRead: authController.listDidRead
         });
-        // res.render("listDidRead");
     } else {
         res.redirect("/signin");
     }
@@ -71,7 +66,6 @@ router.get("/deleteAccount", authController.signedIn, (req, res) => {
 
 //addDidRead
 router.get("/addDidRead/:text", authController.addDidRead, (req, res) => {
-    // console.log("/addDidRead req: ", req.user);
     console.log("/addDidRead/:text: ", req.params);
     if (req.user) {
         res.render("listBooks");

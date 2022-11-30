@@ -26,7 +26,6 @@
         crossorigin="anonymous"></script>
 </body>
 <h5 class="profile-title">Hi {{user.username}}!</h5>
-{{!-- not able to display username like in /userProfile --}}
 <div class="container mt-4">
 
     <div class="navbar navbar-light bg-light justify-content-between">
@@ -63,15 +62,9 @@
             <td>{{this.ID}}</td>
             <td>{{this.PublishDate}}</td>
             <td>{{this.Description}}</td>
-
-            {{!-- need to add functionality for add to DidRead and ToRead lists--}}
-{{!-- onclick = "addBook({{this.ID}}) --}}
-{{!-- onclick= "addDidRead({{this.ID}})" --}}
             <td>
                 <a class="btn btn-primary" href = "/addDidRead/{{this.ID}}" role="button" >DidRead</a>
                 </td>
-            {{!-- <td><a href="/users/delete/">ToRead</a></td> --}}
-
         </tr>
         {{/each}}
     </table>
