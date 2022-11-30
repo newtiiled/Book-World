@@ -70,15 +70,14 @@ router.get("/deleteAccount", authController.signedIn, (req, res) => {
 });
 
 //addDidRead
-router.post("/addDidRead/", authController.signedIn, (req, res) => {
-    console.log("/addDidRead req: ", req.user);
-    if (req.user){
-        authController.addDidRead
-        // Signs user out using signout endpoint
-        // res.redirect("/auth/signout");
+router.post("/addDidRead/:text", authController.addDidRead, (req, res) => {
+    // console.log("/addDidRead req: ", req.user);
+    console.log("/addDidRead/:text: ", req.params);
+    if (req.user) {
+        res.render("listBooks");
     } else {
         res.redirect("/signin");
-    }
+    } 
 });
 
 //auth routes

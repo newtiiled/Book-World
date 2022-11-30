@@ -202,44 +202,44 @@ exports.listBooks = async (req, res, then) => {
     }
 }
 
-exports.addDidRead = async (req, res) => {
-    // console.log(req.body);
-    console.log("addDidRead req: ", req.params);
-    if (req.cookies.jwt) {
-        try {
-            //check token, get user.id
-            const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
-            // console.log(token);
-            //make sure user still exists
-            db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
-                // console.log(result);
-                if (!result) {
-                    return then();
-                }
-                req.user = result[0];
+// exports.addDidRead = async (req, res) => {
+//     // console.log(req.body);
+//     console.log("addDidRead req: ", req.params);
+//     if (req.cookies.jwt) {
+//         try {
+//             //check token, get user.id
+//             const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
+//             // console.log(token);
+//             //make sure user still exists
+//             db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
+//                 // console.log(result);
+//                 if (!result) {
+//                     return then();
+//                 }
+//                 req.user = result[0];
 
-                // db.query('INSERT INTO DidRead SET ?', { userID: token.id, bookID: 2}, (error, result) => {
-                //     if (error) {
-                //         console.log('error');
-                //     } else {
-                //         // console.log(result)
-                //         return res.render('listBooks', {
-                //             message: 'user successfully registered'
-                //         });
+//                 // db.query('INSERT INTO DidRead SET ?', { userID: token.id, bookID: 2}, (error, result) => {
+//                 //     if (error) {
+//                 //         console.log('error');
+//                 //     } else {
+//                 //         // console.log(result)
+//                 //         return res.render('listBooks', {
+//                 //             message: 'user successfully registered'
+//                 //         });
 
-                //     }
-                // })
-            });
+//                 //     }
+//                 // })
+//             });
 
-        } catch (error) {
-            console.log(error);
-            return;
-        }
-    } else {
-        then();
-    }
+//         } catch (error) {
+//             console.log(error);
+//             return;
+//         }
+//     } else {
+//         then();
+//     }
 
-}
+// }
 
 exports.listDidRead = async (req, res, then) => {
     if (req.cookies.jwt) {
@@ -330,7 +330,67 @@ exports.listBooksSearch = async (req, res, then) => {
     }
 }
 
+exports.addDidRead = async (req, res, then) => {
+    // console.log("req: ", req.params);
+    if (req.cookies.jwt) {
+        try {
+            //check token, get user.id
+            const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
 
+            console.log(token);
+
+            //make sure user still exists
+            db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
+                console.log("result: ", result);
+                console.log("req.params.text: ", req.params.text);
+
+                if (!result) {
+                    return then();
+                }
+                req.user = result[0];
+
+                db.query(`INSERT INTO DidRead SET ?`, { userID: req.user, bookID: req.params.text},
+                    async (error, result) => {
+                        if (error) {
+                            console.log(error)
+                        } else {
+                            console.log(result);
+                            db.query(`SELECT * FROM Books`, 
+                            async (error, result) => {
+                                if (error) {
+                                    console.log(error)
+                                } else {
+            
+                                    // console.log(result);
+                                    result.shift();// Removes first element(skip 0 index just the column names)
+                                    return res.status(200).render('listBooks', {
+                                        books: result,
+                                        user: req.user
+                                    });
+                                    // return res.render('books', {
+                                    //     message: 'listed books'
+                                    // });
+            
+                                }
+                                then();
+                            })
+
+                        }
+                        then();
+                    })
+            });
+
+        } catch (error) {
+            console.log(error);
+            return;
+
+        }
+
+
+    } else {
+        then();
+    }
+}
 // Delete
 // userID passed from routes.js
 exports.deleteAccount = async (userID, req, res) => {
