@@ -376,6 +376,7 @@ exports.favBooks = async(req, res, then) => {
                             result.shift();// Removes first element(skip 0 index just the column names)
                             return res.status(200).render('listBooks', {
                                 books: result,
+                                message: 'Favourited Book',
                                 user: req.user
                             });
 
