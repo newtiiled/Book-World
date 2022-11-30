@@ -51,7 +51,7 @@
             <th>Description</th>
             {{!-- we dont have a description for books, can make up garbage values --}}
             <th>Add to list of Read books</th>
-            <th>Add to Reading List</th>
+            {{!-- <th>Add to Reading List</th> --}}
         </tr>
 
         {{#each books}}
@@ -65,8 +65,11 @@
             <td>{{this.Description}}</td>
 
             {{!-- need to add functionality for add to DidRead and ToRead lists--}}
-            <td><a href="/users/edit/">DidRead</a></td>
-            <td><a href="/users/delete/">ToRead</a></td>
+
+            <td>
+                <a class="btn btn-primary" action="/addDidRead" role="button" onclick = "addBook({{this.ID}})">DidRead</a>
+                </td>
+            {{!-- <td><a href="/users/delete/">ToRead</a></td> --}}
 
         </tr>
         {{/each}}

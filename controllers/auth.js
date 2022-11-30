@@ -1,6 +1,6 @@
 //connect to db
 const { promisify } = require('util');
-const mysql = require("mysql"); 
+const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 
@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
     //QUERY INTO DB
     // ? represents the username we're looking for, username comes from the form
     db.query(`SELECT username FROM user WHERE username = ?`, [username], async (error, result) => {
-        if(error) {
+        if (error) {
             console.log(error)
         } else {
             if (result.length > 0) {
@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
         let hashpass = await bcryptjs.hash(password, 5);
         // console.log(hashpass);
 
-        db.query('INSERT INTO user SET ?', {name: name, username: username, password:hashpass}, (error, result) => {
+        db.query('INSERT INTO user SET ?', { name: name, username: username, password: hashpass }, (error, result) => {
             if (error) {
                 console.log('error');
             } else {
@@ -81,7 +81,7 @@ exports.signin = async (req, res) => {
                     } else {
                         const id = result[0].id;
                         //create secret token and password for user
-                        const jwttoken = jwt.sign({id:id}, process.env.JWT, {
+                        const jwttoken = jwt.sign({ id: id }, process.env.JWT, {
                             expiresIn: process.env.JWT_EXPIRE
                         });
 
@@ -89,14 +89,14 @@ exports.signin = async (req, res) => {
                         const fromnow = Date.now();
                         const cookie = {
                             expires: new Date(
-                                fromnow + (((process.env.JWT_COOKIE_EXPIRE * 24)*60)*60)
+                                fromnow + (((process.env.JWT_COOKIE_EXPIRE * 24) * 60) * 60)
 
                             ),
                             httpOnly: true
                         }
                         res.cookie("jwt", jwttoken, cookie);
                         res.status(200).redirect("/");
-                    } 
+                    }
                 }
             })
         }
@@ -127,7 +127,7 @@ exports.signedIn = async (req, res, then) => {
             });
 
         } catch (error) {
-            console.log(error);  
+            console.log(error);
             return then();
 
         }
@@ -137,23 +137,23 @@ exports.signedIn = async (req, res, then) => {
     }
 }
 
-exports.signout = async(req, res) => {
+exports.signout = async (req, res) => {
     try {
-        const now = new Date(Date.now() + 2*1000);
+        const now = new Date(Date.now() + 2 * 1000);
         //new cookie to overwrite the user's
-        res.cookie("jwt",  jwt.sign({}, process.env.JWT, {expiresIn: Date.now()}), {
+        res.cookie("jwt", jwt.sign({}, process.env.JWT, { expiresIn: Date.now() }), {
             expires: now,
             httpOnly: true
         });
-    
+
         res.status(200).redirect("/");
 
     } catch (error) {
-        console.log(error); 
+        console.log(error);
     }
 }
 
-exports.listBooks = async(req, res, then) => {
+exports.listBooks = async (req, res, then) => {
     if (req.cookies.jwt) {
         try {
             //check token, get user.id
@@ -169,19 +169,20 @@ exports.listBooks = async(req, res, then) => {
                 req.user = result[0];
 
                 db.query(`SELECT * FROM Books`, async (error, result) => {
-                    if(error) {
+                    if (error) {
                         console.log(error)
                     } else {
 
-                        console.log(result);
+                        // console.log(result);
                         result.shift();// Removes first element(skip 0 index just the column names)
                         return res.status(200).render('listBooks', {
-                            books: result
+                            books: result,
+                            user: req.user
                         });
                         // return res.render('books', {
                         //     message: 'listed books'
                         // });
-            
+
                     }
                     then();
                 })
@@ -191,7 +192,7 @@ exports.listBooks = async(req, res, then) => {
             });
 
         } catch (error) {
-            console.log(error);  
+            console.log(error);
             return;
 
         }
@@ -201,10 +202,86 @@ exports.listBooks = async(req, res, then) => {
     }
 }
 
+exports.addDidRead = async (req, res) => {
+    // console.log(req.body);
+    console.log("addDidRead req: ", req.params);
+    if (req.cookies.jwt) {
+        try {
+            //check token, get user.id
+            const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
+            // console.log(token);
+            //make sure user still exists
+            db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
+                // console.log(result);
+                if (!result) {
+                    return then();
+                }
+                req.user = result[0];
+
+                // db.query('INSERT INTO DidRead SET ?', { userID: token.id, bookID: 2}, (error, result) => {
+                //     if (error) {
+                //         console.log('error');
+                //     } else {
+                //         // console.log(result)
+                //         return res.render('listBooks', {
+                //             message: 'user successfully registered'
+                //         });
+
+                //     }
+                // })
+            });
+
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+    } else {
+        then();
+    }
+
+}
+
+exports.listDidRead = async (req, res, then) => {
+    if (req.cookies.jwt) {
+        try {
+            //check token, get user.id
+            const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
+            // console.log(token);
+            //make sure user still exists
+            db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
+                // console.log(result);
+                if (!result) {
+                    return then();
+                }
+                req.user = result[0];
+
+                db.query('SELECT Title, ID FROM Books, DidRead WHERE bookID = Books.ID AND DidRead.userID = ?', [token.id], async (error, result) => {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        console.log("result: ", result);
+                        return res.status(200).render('userProfile', {
+                            listDidRead: result,
+                            user: req.user
+                        });
+                    }
+                    then();
+                })
+            });
+
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+    } else {
+        then();
+    }
+}
 
 //Same command as listBooks, but query instead performs a search
 //Search String stored in req.params.text
-exports.listBooksSearch = async(req, res, then) => {
+exports.listBooksSearch = async (req, res, then) => {
+    // console.log("req: ", req.params);
     if (req.cookies.jwt) {
         try {
             //check token, get user.id
@@ -214,7 +291,7 @@ exports.listBooksSearch = async(req, res, then) => {
 
             //make sure user still exists
             db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
-                console.log(result);
+                console.log("result: ", result);
 
                 if (!result) {
                     return then();
@@ -227,22 +304,22 @@ exports.listBooksSearch = async(req, res, then) => {
                             OR Publisher like '%${req.params.text}%' 
                             OR ID like '%${req.params.text}%' 
                             OR PublishDate like '%${req.params.text}%' 
-                            OR Description like '%${req.params.text}%'`, 
-                            async (error, result) => {
-                    if(error) {
-                        console.log(error)
-                    } else {
-                        console.log(result);
-                        return res.status(200).render('listBooks', {
-                            books: result
-                        });
-                    }
-                    then();
-                })
+                            OR Description like '%${req.params.text}%'`,
+                    async (error, result) => {
+                        if (error) {
+                            console.log(error)
+                        } else {
+                            console.log(result);
+                            return res.status(200).render('listBooks', {
+                                books: result
+                            });
+                        }
+                        then();
+                    })
             });
 
         } catch (error) {
-            console.log(error);  
+            console.log(error);
             return;
 
         }
@@ -256,9 +333,9 @@ exports.listBooksSearch = async(req, res, then) => {
 
 // Delete
 // userID passed from routes.js
-exports.deleteAccount = async(userID, req, res) => {
-    db.query('DELETE FROM user WHERE id = ?', [userID],(error, result) => {
-        if(error){
+exports.deleteAccount = async (userID, req, res) => {
+    db.query('DELETE FROM user WHERE id = ?', [userID], (error, result) => {
+        if (error) {
             console.log(error);
         } else {
             console.log(result);

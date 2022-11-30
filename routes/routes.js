@@ -50,6 +50,7 @@ router.get("/listBooks", authController.listBooks, (req, res) => {
 //Search Books
 //Req object contains search string in "text" url, and accessed by req.params.text
 router.get("/search/:text", authController.listBooksSearch, (req, res) => {
+    console.log("//search/:text: ", req.params);
     if (req.user) {
         res.render("listBooks");
     } else {
@@ -63,6 +64,18 @@ router.get("/deleteAccount", authController.signedIn, (req, res) => {
         authController.deleteAccount(req.user.id)
         // Signs user out using signout endpoint
         res.redirect("/auth/signout");
+    } else {
+        res.redirect("/signin");
+    }
+});
+
+//addDidRead
+router.post("/addDidRead/", authController.signedIn, (req, res) => {
+    console.log("/addDidRead req: ", req.user);
+    if (req.user){
+        authController.addDidRead
+        // Signs user out using signout endpoint
+        // res.redirect("/auth/signout");
     } else {
         res.redirect("/signin");
     }
