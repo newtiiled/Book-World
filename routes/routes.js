@@ -42,6 +42,15 @@ router.get("/listBooks", authController.listBooks, (req, res) => {
     }
 });
 
+//orderBooks if signed in
+router.get("/orderBooks", authController.orderBooks, (req, res) => {
+    if (req.user) {
+        res.render("listBooks");
+    } else {
+        res.redirect("/signin");
+    }
+});
+
 //Search Books
 //Req object contains search string in "text" url, and accessed by req.params.text
 router.get("/search/:text", authController.listBooksSearch, (req, res) => {

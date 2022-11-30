@@ -29,7 +29,13 @@
 <div class="container mt-4">
 
     <div class="navbar navbar-light bg-light justify-content-between">
-        <h4 style="margin:5px;">The Books Database</h4>
+        <div>
+            <div style="display:flex;">
+                <h4 style="margin:5px; margin-top:10px;">The Books Database</h4>
+                    <a class="btn btn-primary" style="float:right" href="/orderBooks" role="button">Order By Title</a>
+            </div>
+        </div>
+
         <div style="display:flex;">
                 <input class="form-control mr-sm-2" style="margin:5px;" type="text" name="searchBar" id="searchBar" placeholder="search for book"/>
                 <button class="btn btn-primary" style="margin:5px;" id="searchBtn" disabled="true" role="button">Search</button>

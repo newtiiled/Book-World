@@ -185,6 +185,43 @@ exports.listBooks = async (req, res, then) => {
     }
 }
 
+exports.orderBooks = async (req, res, then) => {
+    if (req.cookies.jwt) {
+        try {
+            //check token, get user.id
+            const token = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT);
+            //make sure user still exists
+            db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
+                if (!result) {
+                    return then();
+                }
+                req.user = result[0];
+
+                db.query(`SELECT * FROM Books ORDER BY Title`, async (error, result) => {
+                    if (error) {
+                        console.log(error)
+                    } else {
+
+                        // console.log(result);
+                        result.shift();// Removes first element(skip 0 index just the column names)
+                        return res.status(200).render('listBooks', {
+                            books: result,
+                            user: req.user
+                        });
+                    }
+                    then();
+                })
+            });
+
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+    } else {
+        then();
+    }
+}
+
 exports.listDidRead = async (req, res, then) => {
     if (req.cookies.jwt) {
         try {
