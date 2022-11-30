@@ -255,7 +255,7 @@ exports.listDidRead = async (req, res, then) => {
                 }
                 req.user = result[0];
 
-                db.query('SELECT Title, ID FROM Books, DidRead WHERE bookID = Books.ID AND DidRead.userID = ?', [token.id], async (error, result) => {
+                db.query('SELECT DISTINCT Title, ID FROM Books, DidRead WHERE bookID = Books.ID AND DidRead.userID = ?', [token.id], async (error, result) => {
                     if (error) {
                         console.log(error)
                     } else {
@@ -298,12 +298,12 @@ exports.listBooksSearch = async (req, res, then) => {
                 }
                 req.user = result[0];
 
-                db.query(`SELECT * FROM Books WHERE Title like '%${req.params.text}%' 
-                            OR Author like '%${req.params.text}%' 
-                            OR Genre like '%${req.params.text}%' 
-                            OR Publisher like '%${req.params.text}%' 
-                            OR ID like '%${req.params.text}%' 
-                            OR PublishDate like '%${req.params.text}%' 
+                db.query(`SELECT * FROM Books WHERE Title like '%${req.params.text}%'
+                            OR Author like '%${req.params.text}%'
+                            OR Genre like '%${req.params.text}%'
+                            OR Publisher like '%${req.params.text}%'
+                            OR ID like '%${req.params.text}%'
+                            OR PublishDate like '%${req.params.text}%'
                             OR Description like '%${req.params.text}%'`,
                     async (error, result) => {
                         if (error) {
@@ -342,41 +342,36 @@ exports.addDidRead = async (req, res, then) => {
             //make sure user still exists
             db.query(`SELECT * FROM user WHERE id = ?`, [token.id], (error, result) => {
                 console.log("result: ", result);
-                console.log("req.params.text: ", req.params.text);
 
                 if (!result) {
                     return then();
                 }
                 req.user = result[0];
 
-                db.query(`INSERT INTO DidRead SET ?`, { userID: req.user, bookID: req.params.text},
+                db.query(`INSERT INTO DidRead SET ?`, { userID: [token.id], bookID: req.params.text},
                     async (error, result) => {
                         if (error) {
                             console.log(error)
-                        } else {
-                            console.log(result);
-                            db.query(`SELECT * FROM Books`, 
-                            async (error, result) => {
-                                if (error) {
-                                    console.log(error)
-                                } else {
-            
-                                    // console.log(result);
-                                    result.shift();// Removes first element(skip 0 index just the column names)
-                                    return res.status(200).render('listBooks', {
-                                        books: result,
-                                        user: req.user
-                                    });
-                                    // return res.render('books', {
-                                    //     message: 'listed books'
-                                    // });
-            
-                                }
-                                then();
-                            })
-
+                            return then();
                         }
-                        then();
+                        db.query(`SELECT * FROM Books`, async (error, result) => {
+                            if (error) {
+                                console.log(error)
+                            } else {
+
+                                // console.log(result);
+                                result.shift();// Removes first element(skip 0 index just the column names)
+                                return res.status(200).render('listBooks', {
+                                    books: result,
+                                    user: req.user
+                                });
+                                // return res.render('books', {
+                                //     message: 'listed books'
+                                // });
+
+                            }
+                            then();
+                        })
                     })
             });
 
@@ -401,5 +396,11 @@ exports.deleteAccount = async (userID, req, res) => {
             console.log(result);
         }
     });
+    db.query('DELETE FROM DidRead WHERE userID = ?', [userID], (error, result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(result);
+        }
+    });
 }
-

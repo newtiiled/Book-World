@@ -68,7 +68,7 @@
 {{!-- onclick = "addBook({{this.ID}}) --}}
 {{!-- onclick= "addDidRead({{this.ID}})" --}}
             <td>
-                <a class="btn btn-primary" id = "didReadBtn"  href = "/addDidRead/{{this.ID}}" role="button" >DidRead</a>
+                <a class="btn btn-primary" href = "/addDidRead/{{this.ID}}" role="button" >DidRead</a>
                 </td>
             {{!-- <td><a href="/users/delete/">ToRead</a></td> --}}
 
@@ -94,16 +94,5 @@
     searchBar.addEventListener("input", function(){
         searchBtn.disabled = (this.value === '');
     })
-
-
-    const didReadBtn = document.getElementById('didReadBtn');
-    didReadBtn.addEventListener("click", addDidRead);
-    function addDidRead(bookID){
-        console.log("didReadBtn.value;: ", didReadBtn.value);
-        console.log("bookID: ", bookID);
-
-        //var bookID = didReadBtn.value;
-        //window.location.href = '/search/' + bookID;
-    }
 
 </script>

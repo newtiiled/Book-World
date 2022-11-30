@@ -55,7 +55,7 @@ router.get("/search/:text", authController.listBooksSearch, (req, res) => {
         res.render("listBooks");
     } else {
         res.redirect("/signin");
-    } 
+    }
 });
 
 //Delete user
@@ -70,14 +70,14 @@ router.get("/deleteAccount", authController.signedIn, (req, res) => {
 });
 
 //addDidRead
-router.post("/addDidRead/:text", authController.addDidRead, (req, res) => {
+router.get("/addDidRead/:text", authController.addDidRead, (req, res) => {
     // console.log("/addDidRead req: ", req.user);
     console.log("/addDidRead/:text: ", req.params);
     if (req.user) {
         res.render("listBooks");
     } else {
         res.redirect("/signin");
-    } 
+    }
 });
 
 //auth routes
@@ -90,5 +90,5 @@ router.post("/auth/register", authController.register);
 router.post("/auth/signin", authController.signin);
 router.get("/auth/signout", authController.signout);
 
- 
+
 module.exports = router;
