@@ -23,10 +23,10 @@ router.get("/signin", (req, res) => {
 });
 
 //route
-router.get("/userProfile", authController.signedIn, (req, res) => {
+router.get("/userProfile", authController.listDidRead, (req, res) => {
     if (req.user) {
         res.render("userProfile", {
-            user: req.user 
+            user: req.user,
         });
     } else {
         res.redirect("/signin");
@@ -45,11 +45,12 @@ router.get("/listBooks", authController.listBooks, (req, res) => {
 //Search Books
 //Req object contains search string in "text" url, and accessed by req.params.text
 router.get("/search/:text", authController.listBooksSearch, (req, res) => {
+    console.log("//search/:text: ", req.params);
     if (req.user) {
         res.render("listBooks");
     } else {
         res.redirect("/signin");
-    } 
+    }
 });
 
 //Delete user
@@ -63,14 +64,25 @@ router.get("/deleteAccount", authController.signedIn, (req, res) => {
     }
 });
 
+//addDidRead
+router.get("/addDidRead/:text", authController.addDidRead, (req, res) => {
+    console.log("/addDidRead/:text: ", req.params);
+    if (req.user) {
+        res.render("listBooks");
+    } else {
+        res.redirect("/signin");
+    }
+});
+
 //auth routes
 
 //route post, when submitting a form
 //like auth/register
 router.post("/auth/listBooks", authController.listBooks);
+router.post("/auth/listDidRead", authController.listDidRead);
 router.post("/auth/register", authController.register);
 router.post("/auth/signin", authController.signin);
 router.get("/auth/signout", authController.signout);
 
- 
+
 module.exports = router;

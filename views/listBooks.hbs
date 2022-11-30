@@ -26,7 +26,6 @@
         crossorigin="anonymous"></script>
 </body>
 <h5 class="profile-title">Hi {{user.username}}!</h5>
-{{!-- not able to display username like in /userProfile --}}
 <div class="container mt-4">
 
     <div class="navbar navbar-light bg-light justify-content-between">
@@ -38,6 +37,10 @@
         </div>
     </div>
 
+    {{#if message }}
+        <h4 class="alert alert-primary mt-4">{{message}}</h4>
+    {{/if}}
+    
     <table class="table">
         <tr>
             <th>Title</th>
@@ -51,7 +54,7 @@
             <th>Description</th>
             {{!-- we dont have a description for books, can make up garbage values --}}
             <th>Add to list of Read books</th>
-            <th>Add to Reading List</th>
+            {{!-- <th>Add to Reading List</th> --}}
         </tr>
 
         {{#each books}}
@@ -63,11 +66,9 @@
             <td>{{this.ID}}</td>
             <td>{{this.PublishDate}}</td>
             <td>{{this.Description}}</td>
-
-            {{!-- need to add functionality for add to DidRead and ToRead lists--}}
-            <td><a href="/users/edit/">DidRead</a></td>
-            <td><a href="/users/delete/">ToRead</a></td>
-
+            <td>
+                <a class="btn btn-primary" href = "/addDidRead/{{this.ID}}" role="button" >DidRead</a>
+                </td>
         </tr>
         {{/each}}
     </table>
@@ -90,4 +91,5 @@
     searchBar.addEventListener("input", function(){
         searchBtn.disabled = (this.value === '');
     })
+
 </script>
