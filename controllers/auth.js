@@ -304,7 +304,7 @@ exports.addDidRead = async (req, res, then) => {
                             result.shift();// Removes first element(skip 0 index just the column names)
                             return res.status(200).render('listBooks', {
                                 books: result,
-                                message: 'Book already in "TO Read" List',
+                                message: 'Book already in "Did Read" List',
                                 user: req.user
                             });
                         }
@@ -325,7 +325,7 @@ exports.addDidRead = async (req, res, then) => {
                                     result.shift();// Removes first element(skip 0 index just the column names)
                                     return res.status(200).render('listBooks', {
                                         books: result,
-                                        message: 'Book added to "TO Read" List',
+                                        message: 'Book added to "Did Read" List',
                                         user: req.user
                                     });
                                 }
