@@ -31,9 +31,14 @@ Ben
 - SQL Code (C2)
 - SQL Query (C3)
 - (R6c, R6d) Snapshots, Implemention, Writeup for the Delete User Account Functionality
-- Finding, Modification, Writeup of new Books production dataset.
-- Testing importing production data.
+- Finding, Modification, Writeup of new Books production dataset
+- Testing importing production data
 - R4 Writeup
+- R16 Fancy Feature 5 Writeup
+- Implementation and testing of searching functionality on books database
+- Implementation and design of searching UI, controls, and scripts
+- UI fixes
+- Recording of Delete User Demo and Search Books Database Demo
 
 Kanwal
 - Milestone 0 description & planning
