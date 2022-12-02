@@ -8,6 +8,8 @@ Uma
 - SQL Code (C2)
 - SQL Query (C3)
 - Features +2 (R6c)
+- Implementation of Favourite Book feature
+- Testing of Favourite Book feature
 
 Preethi
 - Milestone 0 description & planning
