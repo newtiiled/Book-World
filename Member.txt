@@ -68,6 +68,8 @@ Kanwal
 - C4. Production dataset
 - C5. Application code
 - R17: Member.txt
+- UI work, sql queries, setting up db
+- Recording 1)System Support, 2)How to Run our Application, 3)Register/Sign In/Sign Out, and Summary slide for demo
 - Note: user on github contributions "Muhammad Jamal" is the name of my laptop
 
 
