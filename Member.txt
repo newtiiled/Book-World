@@ -60,12 +60,14 @@ Kanwal
 - R6a, R6b, R6c, R6d for register, sign in, sign out, UI, user profile
 - R7a, R7b, R7c, R7d, for searching/listing all Books in the database
   - making sure it is restricted access (if not signed in, redirect to sign in page)
-- Fancy Features (1, 2, 3, 4)
+- Fancy Features (R12, R13, R14, R15)
+- R10a, R10b, R10c, R10d, for Order books list by Title
 - C1. ReadMe
 - C2. SQL code
 - C3. SQL queries
 - C4. Production dataset
 - C5. Application code
+- R17: Member.txt
 - Note: user on github contributions "Muhammad Jamal" is the name of my laptop
 
 
