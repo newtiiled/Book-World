@@ -23,8 +23,6 @@ To Run:
 - Should now be able to interact with our application completely
   
 NOTE:
-- For demo of functionality (Milestone 1): https://github.com/kjamal01/CS348-Project/pull/1
-  - Funtionality has since changed. Updated functionality is in our Milestone 2 report document
 - many sql scripts are embedded in the code. We will include references to them
   - The rest are linked or used in our db
   - Additionally, we created a folder in our repo that contains them (sql_queries)
@@ -41,12 +39,6 @@ Features Done Milestone 2:
 - User Profile Created
   - User profile has option to delete user (which signs them out)
   - User profile holds place to display a user’s 2 lists (“want to read” and “did read”)
- 
-NOTE: Most of this functionality is found in
- - https://github.com/kjamal01/CS348-Project/blob/main/controllers/auth.js (INCLUDING SQL)
- - https://github.com/kjamal01/CS348-Project/blob/main/routes/routes.js
- - UI Features are within their respective and specific files under: https://github.com/kjamal01/CS348-Project/tree/main/views
- - SQL queries: https://github.com/kjamal01/CS348-Project/tree/main/sql_queries
   
 Completed all Fancy Features defined in fancy features section of report:
 
