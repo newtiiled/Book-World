@@ -1,4 +1,4 @@
-# CS348-Project
+# Book-World
 
 Start-up involved (won't need to be replicated):
 
